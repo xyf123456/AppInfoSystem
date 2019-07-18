@@ -1,0 +1,319 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bdqn.appInfo.dao.InfoMapper" >
+  <resultMap id="BaseResultMap" type="com.bdqn.appInfo.pojo.Info" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="softwareName" property="softwarename" jdbcType="VARCHAR" />
+    <result column="APKName" property="apkname" jdbcType="VARCHAR" />
+    <result column="supportROM" property="supportrom" jdbcType="VARCHAR" />
+    <result column="interfaceLanguage" property="interfacelanguage" jdbcType="VARCHAR" />
+    <result column="softwareSize" property="softwaresize" jdbcType="DECIMAL" />
+    <result column="updateDate" property="updatedate" jdbcType="DATE" />
+    <result column="devId" property="devid" jdbcType="BIGINT" />
+    <result column="appInfo" property="appinfo" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="BIGINT" />
+    <result column="onSaleDate" property="onsaledate" jdbcType="TIMESTAMP" />
+    <result column="offSaleDate" property="offsaledate" jdbcType="TIMESTAMP" />
+    <result column="flatformId" property="flatformid" jdbcType="BIGINT" />
+    <result column="categoryLevel3" property="categorylevel3" jdbcType="BIGINT" />
+    <result column="downloads" property="downloads" jdbcType="BIGINT" />
+    <result column="createdBy" property="createdby" jdbcType="BIGINT" />
+    <result column="creationDate" property="creationdate" jdbcType="TIMESTAMP" />
+    <result column="modifyBy" property="modifyby" jdbcType="BIGINT" />
+    <result column="modifyDate" property="modifydate" jdbcType="TIMESTAMP" />
+    <result column="categoryLevel1" property="categorylevel1" jdbcType="BIGINT" />
+    <result column="categoryLevel2" property="categorylevel2" jdbcType="BIGINT" />
+    <result column="logoPicPath" property="logopicpath" jdbcType="VARCHAR" />
+    <result column="logoLocPath" property="logolocpath" jdbcType="VARCHAR" />
+    <result column="versionId" property="versionid" jdbcType="BIGINT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, softwareName, APKName, supportROM, interfaceLanguage, softwareSize, updateDate, 
+    devId, appInfo, status, onSaleDate, offSaleDate, flatformId, categoryLevel3, downloads, 
+    createdBy, creationDate, modifyBy, modifyDate, categoryLevel1, categoryLevel2, logoPicPath, 
+    logoLocPath, versionId
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from app_info
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from app_info
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.bdqn.appInfo.pojo.Info" >
+    insert into app_info (id, softwareName, APKName, 
+      supportROM, interfaceLanguage, softwareSize, 
+      updateDate, devId, appInfo, 
+      status, onSaleDate, offSaleDate, 
+      flatformId, categoryLevel3, downloads, 
+      createdBy, creationDate, modifyBy, 
+      modifyDate, categoryLevel1, categoryLevel2, 
+      logoPicPath, logoLocPath, versionId
+      )
+    values (#{id,jdbcType=BIGINT}, #{softwarename,jdbcType=VARCHAR}, #{apkname,jdbcType=VARCHAR}, 
+      #{supportrom,jdbcType=VARCHAR}, #{interfacelanguage,jdbcType=VARCHAR}, #{softwaresize,jdbcType=DECIMAL}, 
+      #{updatedate,jdbcType=DATE}, #{devid,jdbcType=BIGINT}, #{appinfo,jdbcType=VARCHAR}, 
+      #{status,jdbcType=BIGINT}, #{onsaledate,jdbcType=TIMESTAMP}, #{offsaledate,jdbcType=TIMESTAMP}, 
+      #{flatformid,jdbcType=BIGINT}, #{categorylevel3,jdbcType=BIGINT}, #{downloads,jdbcType=BIGINT}, 
+      #{createdby,jdbcType=BIGINT}, #{creationdate,jdbcType=TIMESTAMP}, #{modifyby,jdbcType=BIGINT}, 
+      #{modifydate,jdbcType=TIMESTAMP}, #{categorylevel1,jdbcType=BIGINT}, #{categorylevel2,jdbcType=BIGINT}, 
+      #{logopicpath,jdbcType=VARCHAR}, #{logolocpath,jdbcType=VARCHAR}, #{versionid,jdbcType=BIGINT}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.bdqn.appInfo.pojo.Info" >
+    insert into app_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="softwarename != null" >
+        softwareName,
+      </if>
+      <if test="apkname != null" >
+        APKName,
+      </if>
+      <if test="supportrom != null" >
+        supportROM,
+      </if>
+      <if test="interfacelanguage != null" >
+        interfaceLanguage,
+      </if>
+      <if test="softwaresize != null" >
+        softwareSize,
+      </if>
+      <if test="updatedate != null" >
+        updateDate,
+      </if>
+      <if test="devid != null" >
+        devId,
+      </if>
+      <if test="appinfo != null" >
+        appInfo,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="onsaledate != null" >
+        onSaleDate,
+      </if>
+      <if test="offsaledate != null" >
+        offSaleDate,
+      </if>
+      <if test="flatformid != null" >
+        flatformId,
+      </if>
+      <if test="categorylevel3 != null" >
+        categoryLevel3,
+      </if>
+      <if test="downloads != null" >
+        downloads,
+      </if>
+      <if test="createdby != null" >
+        createdBy,
+      </if>
+      <if test="creationdate != null" >
+        creationDate,
+      </if>
+      <if test="modifyby != null" >
+        modifyBy,
+      </if>
+      <if test="modifydate != null" >
+        modifyDate,
+      </if>
+      <if test="categorylevel1 != null" >
+        categoryLevel1,
+      </if>
+      <if test="categorylevel2 != null" >
+        categoryLevel2,
+      </if>
+      <if test="logopicpath != null" >
+        logoPicPath,
+      </if>
+      <if test="logolocpath != null" >
+        logoLocPath,
+      </if>
+      <if test="versionid != null" >
+        versionId,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="softwarename != null" >
+        #{softwarename,jdbcType=VARCHAR},
+      </if>
+      <if test="apkname != null" >
+        #{apkname,jdbcType=VARCHAR},
+      </if>
+      <if test="supportrom != null" >
+        #{supportrom,jdbcType=VARCHAR},
+      </if>
+      <if test="interfacelanguage != null" >
+        #{interfacelanguage,jdbcType=VARCHAR},
+      </if>
+      <if test="softwaresize != null" >
+        #{softwaresize,jdbcType=DECIMAL},
+      </if>
+      <if test="updatedate != null" >
+        #{updatedate,jdbcType=DATE},
+      </if>
+      <if test="devid != null" >
+        #{devid,jdbcType=BIGINT},
+      </if>
+      <if test="appinfo != null" >
+        #{appinfo,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=BIGINT},
+      </if>
+      <if test="onsaledate != null" >
+        #{onsaledate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="offsaledate != null" >
+        #{offsaledate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="flatformid != null" >
+        #{flatformid,jdbcType=BIGINT},
+      </if>
+      <if test="categorylevel3 != null" >
+        #{categorylevel3,jdbcType=BIGINT},
+      </if>
+      <if test="downloads != null" >
+        #{downloads,jdbcType=BIGINT},
+      </if>
+      <if test="createdby != null" >
+        #{createdby,jdbcType=BIGINT},
+      </if>
+      <if test="creationdate != null" >
+        #{creationdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyby != null" >
+        #{modifyby,jdbcType=BIGINT},
+      </if>
+      <if test="modifydate != null" >
+        #{modifydate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="categorylevel1 != null" >
+        #{categorylevel1,jdbcType=BIGINT},
+      </if>
+      <if test="categorylevel2 != null" >
+        #{categorylevel2,jdbcType=BIGINT},
+      </if>
+      <if test="logopicpath != null" >
+        #{logopicpath,jdbcType=VARCHAR},
+      </if>
+      <if test="logolocpath != null" >
+        #{logolocpath,jdbcType=VARCHAR},
+      </if>
+      <if test="versionid != null" >
+        #{versionid,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.bdqn.appInfo.pojo.Info" >
+    update app_info
+    <set >
+      <if test="softwarename != null" >
+        softwareName = #{softwarename,jdbcType=VARCHAR},
+      </if>
+      <if test="apkname != null" >
+        APKName = #{apkname,jdbcType=VARCHAR},
+      </if>
+      <if test="supportrom != null" >
+        supportROM = #{supportrom,jdbcType=VARCHAR},
+      </if>
+      <if test="interfacelanguage != null" >
+        interfaceLanguage = #{interfacelanguage,jdbcType=VARCHAR},
+      </if>
+      <if test="softwaresize != null" >
+        softwareSize = #{softwaresize,jdbcType=DECIMAL},
+      </if>
+      <if test="updatedate != null" >
+        updateDate = #{updatedate,jdbcType=DATE},
+      </if>
+      <if test="devid != null" >
+        devId = #{devid,jdbcType=BIGINT},
+      </if>
+      <if test="appinfo != null" >
+        appInfo = #{appinfo,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=BIGINT},
+      </if>
+      <if test="onsaledate != null" >
+        onSaleDate = #{onsaledate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="offsaledate != null" >
+        offSaleDate = #{offsaledate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="flatformid != null" >
+        flatformId = #{flatformid,jdbcType=BIGINT},
+      </if>
+      <if test="categorylevel3 != null" >
+        categoryLevel3 = #{categorylevel3,jdbcType=BIGINT},
+      </if>
+      <if test="downloads != null" >
+        downloads = #{downloads,jdbcType=BIGINT},
+      </if>
+      <if test="createdby != null" >
+        createdBy = #{createdby,jdbcType=BIGINT},
+      </if>
+      <if test="creationdate != null" >
+        creationDate = #{creationdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyby != null" >
+        modifyBy = #{modifyby,jdbcType=BIGINT},
+      </if>
+      <if test="modifydate != null" >
+        modifyDate = #{modifydate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="categorylevel1 != null" >
+        categoryLevel1 = #{categorylevel1,jdbcType=BIGINT},
+      </if>
+      <if test="categorylevel2 != null" >
+        categoryLevel2 = #{categorylevel2,jdbcType=BIGINT},
+      </if>
+      <if test="logopicpath != null" >
+        logoPicPath = #{logopicpath,jdbcType=VARCHAR},
+      </if>
+      <if test="logolocpath != null" >
+        logoLocPath = #{logolocpath,jdbcType=VARCHAR},
+      </if>
+      <if test="versionid != null" >
+        versionId = #{versionid,jdbcType=BIGINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.bdqn.appInfo.pojo.Info" >
+    update app_info
+    set softwareName = #{softwarename,jdbcType=VARCHAR},
+      APKName = #{apkname,jdbcType=VARCHAR},
+      supportROM = #{supportrom,jdbcType=VARCHAR},
+      interfaceLanguage = #{interfacelanguage,jdbcType=VARCHAR},
+      softwareSize = #{softwaresize,jdbcType=DECIMAL},
+      updateDate = #{updatedate,jdbcType=DATE},
+      devId = #{devid,jdbcType=BIGINT},
+      appInfo = #{appinfo,jdbcType=VARCHAR},
+      status = #{status,jdbcType=BIGINT},
+      onSaleDate = #{onsaledate,jdbcType=TIMESTAMP},
+      offSaleDate = #{offsaledate,jdbcType=TIMESTAMP},
+      flatformId = #{flatformid,jdbcType=BIGINT},
+      categoryLevel3 = #{categorylevel3,jdbcType=BIGINT},
+      downloads = #{downloads,jdbcType=BIGINT},
+      createdBy = #{createdby,jdbcType=BIGINT},
+      creationDate = #{creationdate,jdbcType=TIMESTAMP},
+      modifyBy = #{modifyby,jdbcType=BIGINT},
+      modifyDate = #{modifydate,jdbcType=TIMESTAMP},
+      categoryLevel1 = #{categorylevel1,jdbcType=BIGINT},
+      categoryLevel2 = #{categorylevel2,jdbcType=BIGINT},
+      logoPicPath = #{logopicpath,jdbcType=VARCHAR},
+      logoLocPath = #{logolocpath,jdbcType=VARCHAR},
+      versionId = #{versionid,jdbcType=BIGINT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

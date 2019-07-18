@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD SQL Map Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+
+    <!-- 1、引入 database.properties 文件-->
+    <!--<properties resource="database.properties"/>-->
+    <!--<properties url=""/>-->
+    <!--  2、修改 MyBatis 在运行时的行为方式：1、配置mybatis的log实现为LOG4J -->
+    <settings>
+        <setting name="logImpl" value="LOG4J"/>
+        <!--对在此配置文件下的所有cache 进行全局性开/关设置-->
+        <!--<setting name="cacheEnabled" value="true"/>-->
+        <!--全局性设置懒加载。如果设为‘false’，则所有相关联的都会被初始化加载-->
+        <!--<setting name="lazyLoadingEnabled" value="true"/>-->
+        <!--MyBatis对于resultMap自动映射匹配级别:PARTIAL/NONE /FULL-->
+        <!--<setting name="autoMappingBehavior" value="true"/>-->
+        <!--......9个配置-->
+    </settings>
+    <!--3、别名-->
+    <typeAliases>
+        <!--全部别名的创建-->
+        <package name="com.bdqn.appInfo.pojo"/>
+        <!--单独别名-->
+        <!--<typeAlias type=""/>-->
+    </typeAliases>
+    <!--4、类型处理器-->
+    <!--  <typeHandlers>
+          <typeHandler handler=""/>
+          <package name=""/>
+      </typeHandlers>-->
+    <!--5、对象工厂-->
+    <!--<objectFactory type=""/>-->
+    <!--6、objectWrapperFactory的配置，获得初始对象的属性值通过ObjectWrapper并可能委派给MetaObject来获得。-->
+    <!--<objectWrapperFactory type=""/>-->
+    <!--7、插件plugins-->
+    <!-- <plugins>
+         <plugin interceptor=""/>
+     </plugins>-->
+    <!--8、mybatis环境配置development、debug、product等环境-->
+    <!--<environments default="development">
+        &lt;!&ndash;配置development&ndash;&gt;
+        <environment id="development">
+            &lt;!&ndash;配置事务管理，采用JDBC的事务管理  &ndash;&gt;
+            <transactionManager type="JDBC"/>
+            &lt;!&ndash; POOLED:mybatis自带的数据源，JNDI:基于tomcat的数据源 ，总共有三种[UNPOOLED | POOLED | JNDI]&ndash;&gt;
+            <dataSource type="POOLED">
+                &lt;!&ndash;直接编写数据库连接参数&ndash;&gt;
+                &lt;!&ndash;  <property name="driver" value="com.mysql.jdbc.Driver"/>
+                  <property name="url" value="jdbc:mysql://127.0.0.1:3306/smbms?useUnicode=true&amp;characterEncoding=utf-8"/>
+                  <property name="username" value="root"/>
+                  <property name="password" value="root"/>&ndash;&gt;
+                &lt;!&ndash;通过读取配置文件资源中的键值对，来读取配置连接数据库参数&ndash;&gt;
+                <property name="driver" value="${driver}"/>
+                <property name="url" value="${url}"/>
+                <property name="username" value="${user}"/>
+                <property name="password" value="${password}"/>
+            </dataSource>
+        </environment>
+    </environments>-->
+    <!--9、databaseIdProvider的配置-->
+    <!--<databaseIdProvider type=""/>-->
+    <!-- 10、映射器的配置，将mapper文件加入到配置文件中 -->
+   <!-- <mappers>
+        <mapper resource="mapper/UserMapper.xml"/>
+        <mapper resource="mapper/ProviderMapper.xml"/>
+        <mapper resource="mapper/RoleMapper.xml"/>
+        <mapper resource="mapper/BillMapper.xml"/>
+        <mapper resource="mapper/AddressMapper.xml"/>
+    </mappers>-->
+
+
+</configuration>

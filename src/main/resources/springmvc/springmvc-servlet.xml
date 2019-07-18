@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="
+        http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/mvc
+        http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+    <!--<bean class="com.bdqn.controller.IndexController" id="indexController" name="/index.html"/>-->
+
+    <!-- 本配置文件是工名为mvc-dispatcher的DispatcherServlet使用， 提供其相关的Spring MVC配置 -->
+
+    <!-- 启用Spring基于annotation的DI, 使用户可以在Spring MVC中使用Spring的强大功能。 激活 @Required
+		@Autowired,JSR 250's @PostConstruct, @PreDestroy and @Resource 等标注 -->
+    <context:annotation-config />
+
+    <!--HandlerMapping无需配置，SpringMVC可以默认的启动。-->
+
+    <!--使用注解的方式-->
+    <!-- 扩充了注解驱动，可以将请求参数绑定到控制器参数 -->
+    <!--<mvc:annotation-driven/>-->
+    <!--<mvc:annotation-driven conversion-service="myDateFormatter">-->
+    <mvc:annotation-driven conversion-service="myDateConverter">
+        <mvc:message-converters>
+            <bean class="org.springframework.http.converter.StringHttpMessageConverter">
+                <property name="supportedMediaTypes">
+                    <list>
+                        <value>application/json;charset=UTF-8</value>
+                    </list>
+                </property>
+            </bean>
+            <bean class="com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter">
+                <property name="supportedMediaTypes">
+                    <list>
+                        <value>text/html;charset=UTF-8</value>
+                        <value>application/json</value>
+                    </list>
+                </property>
+            </bean>
+        </mvc:message-converters>
+    </mvc:annotation-driven>
+    <!--<mvc:annotation-driven conversion-service="conversionService"/>-->
+
+    <!--使用扫描包的形式扫描到对应的控制器-->
+    <context:component-scan base-package="com.bdqn">
+        <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+        <context:include-filter type="annotation" expression="org.springframework.web.bind.annotation.ControllerAdvice"/>
+    </context:component-scan>
+
+    <!-- 静态资源处理， css， js， imgs -->
+    <mvc:resources mapping="/statics/**" location="/statics/"/>
+    <!-- 完成视图的对应 -->
+    <!-- 对转向页面的路径解析。prefix：前缀， suffix：后缀 -->
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="prefix" value="/WEB-INF/jsp/"/>
+        <property name="suffix" value=".jsp"/>
+    </bean>
+
+    <!--200*1024*1024即200M resolveLazily属性启用是为了推迟文件解析，以便捕获文件大小异常 -->
+    <bean id="multipartResolver"
+          class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <property name="maxUploadSize" value="209715200" />
+        <property name="defaultEncoding" value="UTF-8" />
+        <property name="resolveLazily" value="true" />
+    </bean>
+    <!--配置FormattingConversionServiceFactoryBean-->
+    <!--<bean class="org.springframework.format.support.FormattingConversionServiceFactoryBean" id="myDateFormatter">-->
+    <bean class="org.springframework.format.support.FormattingConversionServiceFactoryBean" id="myDateConverter">
+       <!-- <property name="formatters">
+            <set>
+                <bean class="com.bdqn.utils.common.MyDateFormatter"/>
+            </set>
+        </property>-->
+        <property name="converters">
+            <set>
+                <bean class="com.bdqn.appInfo.utils.common.MyDateConverter"/>
+            </set>
+        </property>
+    </bean>
+</beans>
