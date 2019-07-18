@@ -31,7 +31,7 @@
         <a href="manager/login" class="btn btn-link">后台管理系统入口</a>
     </div>
     <div>
-        <a href="dev/login" class="btn btn-link">开发者平台 入口</a>
+        <a href="dev/login" class="btn btn-link">开发者平台入口</a>
     </div>
 </div>
 </body>

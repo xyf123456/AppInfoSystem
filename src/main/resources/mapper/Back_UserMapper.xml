@@ -1,32 +1,47 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.bdqn.appInfo.dao.Back_UserMapper" >
-  <resultMap id="BaseResultMap" type="com.bdqn.appInfo.pojo.Back_User" >
-    <id column="id" property="id" jdbcType="BIGINT" />
-    <result column="userCode" property="usercode" jdbcType="VARCHAR" />
-    <result column="userName" property="username" jdbcType="VARCHAR" />
-    <result column="userType" property="usertype" jdbcType="BIGINT" />
-    <result column="createdBy" property="createdby" jdbcType="BIGINT" />
-    <result column="creationDate" property="creationdate" jdbcType="TIMESTAMP" />
-    <result column="modifyBy" property="modifyby" jdbcType="BIGINT" />
-    <result column="modifyDate" property="modifydate" jdbcType="TIMESTAMP" />
-    <result column="userPassword" property="userpassword" jdbcType="VARCHAR" />
-  </resultMap>
-  <sql id="Base_Column_List" >
+<mapper namespace="com.bdqn.appInfo.dao.Back_UserMapper">
+    <resultMap id="BaseResultMap" type="com.bdqn.appInfo.pojo.Back_User">
+        <id column="id" property="id" jdbcType="BIGINT"/>
+        <result column="userCode" property="usercode" jdbcType="VARCHAR"/>
+        <result column="userName" property="username" jdbcType="VARCHAR"/>
+        <result column="userType" property="usertype" jdbcType="BIGINT"/>
+        <result column="createdBy" property="createdby" jdbcType="BIGINT"/>
+        <result column="creationDate" property="creationdate" jdbcType="TIMESTAMP"/>
+        <result column="modifyBy" property="modifyby" jdbcType="BIGINT"/>
+        <result column="modifyDate" property="modifydate" jdbcType="TIMESTAMP"/>
+        <result column="userPassword" property="userpassword" jdbcType="VARCHAR"/>
+    </resultMap>
+    <sql id="Base_Column_List">
     id, userCode, userName, userType, createdBy, creationDate, modifyBy, modifyDate, 
     userPassword
   </sql>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
-    select 
-    <include refid="Base_Column_List" />
-    from backend_user
-    where id = #{id,jdbcType=BIGINT}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long">
+        select
+        <include refid="Base_Column_List"/>
+        from backend_user
+        where id = #{id,jdbcType=BIGINT}
+    </select>
+    <!--通过usercode+userpassword查找到后台登录用户-->
+    <select id="selectByCodeAndPwd" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from `backend_user`
+        <where>
+            <if test="usercode!=null">
+                AND `userCode` = #{usercode,jdbcType=BIGINT}
+            </if>
+            <if test="userpassword!=null">
+                AND `userPassword` = #{userpassword,jdbcType=BIGINT}
+            </if>
+        </where>
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from backend_user
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <insert id="insert" parameterType="com.bdqn.appInfo.pojo.Back_User" >
+    <insert id="insert" parameterType="com.bdqn.appInfo.pojo.Back_User">
     insert into backend_user (id, userCode, userName, 
       userType, createdBy, creationDate, 
       modifyBy, modifyDate, userPassword
@@ -36,98 +51,98 @@
       #{modifyby,jdbcType=BIGINT}, #{modifydate,jdbcType=TIMESTAMP}, #{userpassword,jdbcType=VARCHAR}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.bdqn.appInfo.pojo.Back_User" >
-    insert into backend_user
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        id,
-      </if>
-      <if test="usercode != null" >
-        userCode,
-      </if>
-      <if test="username != null" >
-        userName,
-      </if>
-      <if test="usertype != null" >
-        userType,
-      </if>
-      <if test="createdby != null" >
-        createdBy,
-      </if>
-      <if test="creationdate != null" >
-        creationDate,
-      </if>
-      <if test="modifyby != null" >
-        modifyBy,
-      </if>
-      <if test="modifydate != null" >
-        modifyDate,
-      </if>
-      <if test="userpassword != null" >
-        userPassword,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        #{id,jdbcType=BIGINT},
-      </if>
-      <if test="usercode != null" >
-        #{usercode,jdbcType=VARCHAR},
-      </if>
-      <if test="username != null" >
-        #{username,jdbcType=VARCHAR},
-      </if>
-      <if test="usertype != null" >
-        #{usertype,jdbcType=BIGINT},
-      </if>
-      <if test="createdby != null" >
-        #{createdby,jdbcType=BIGINT},
-      </if>
-      <if test="creationdate != null" >
-        #{creationdate,jdbcType=TIMESTAMP},
-      </if>
-      <if test="modifyby != null" >
-        #{modifyby,jdbcType=BIGINT},
-      </if>
-      <if test="modifydate != null" >
-        #{modifydate,jdbcType=TIMESTAMP},
-      </if>
-      <if test="userpassword != null" >
-        #{userpassword,jdbcType=VARCHAR},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.bdqn.appInfo.pojo.Back_User" >
-    update backend_user
-    <set >
-      <if test="usercode != null" >
-        userCode = #{usercode,jdbcType=VARCHAR},
-      </if>
-      <if test="username != null" >
-        userName = #{username,jdbcType=VARCHAR},
-      </if>
-      <if test="usertype != null" >
-        userType = #{usertype,jdbcType=BIGINT},
-      </if>
-      <if test="createdby != null" >
-        createdBy = #{createdby,jdbcType=BIGINT},
-      </if>
-      <if test="creationdate != null" >
-        creationDate = #{creationdate,jdbcType=TIMESTAMP},
-      </if>
-      <if test="modifyby != null" >
-        modifyBy = #{modifyby,jdbcType=BIGINT},
-      </if>
-      <if test="modifydate != null" >
-        modifyDate = #{modifydate,jdbcType=TIMESTAMP},
-      </if>
-      <if test="userpassword != null" >
-        userPassword = #{userpassword,jdbcType=VARCHAR},
-      </if>
-    </set>
-    where id = #{id,jdbcType=BIGINT}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.bdqn.appInfo.pojo.Back_User" >
+    <insert id="insertSelective" parameterType="com.bdqn.appInfo.pojo.Back_User">
+        insert into backend_user
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="usercode != null">
+                userCode,
+            </if>
+            <if test="username != null">
+                userName,
+            </if>
+            <if test="usertype != null">
+                userType,
+            </if>
+            <if test="createdby != null">
+                createdBy,
+            </if>
+            <if test="creationdate != null">
+                creationDate,
+            </if>
+            <if test="modifyby != null">
+                modifyBy,
+            </if>
+            <if test="modifydate != null">
+                modifyDate,
+            </if>
+            <if test="userpassword != null">
+                userPassword,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=BIGINT},
+            </if>
+            <if test="usercode != null">
+                #{usercode,jdbcType=VARCHAR},
+            </if>
+            <if test="username != null">
+                #{username,jdbcType=VARCHAR},
+            </if>
+            <if test="usertype != null">
+                #{usertype,jdbcType=BIGINT},
+            </if>
+            <if test="createdby != null">
+                #{createdby,jdbcType=BIGINT},
+            </if>
+            <if test="creationdate != null">
+                #{creationdate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="modifyby != null">
+                #{modifyby,jdbcType=BIGINT},
+            </if>
+            <if test="modifydate != null">
+                #{modifydate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="userpassword != null">
+                #{userpassword,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.bdqn.appInfo.pojo.Back_User">
+        update backend_user
+        <set>
+            <if test="usercode != null">
+                userCode = #{usercode,jdbcType=VARCHAR},
+            </if>
+            <if test="username != null">
+                userName = #{username,jdbcType=VARCHAR},
+            </if>
+            <if test="usertype != null">
+                userType = #{usertype,jdbcType=BIGINT},
+            </if>
+            <if test="createdby != null">
+                createdBy = #{createdby,jdbcType=BIGINT},
+            </if>
+            <if test="creationdate != null">
+                creationDate = #{creationdate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="modifyby != null">
+                modifyBy = #{modifyby,jdbcType=BIGINT},
+            </if>
+            <if test="modifydate != null">
+                modifyDate = #{modifydate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="userpassword != null">
+                userPassword = #{userpassword,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=BIGINT}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.bdqn.appInfo.pojo.Back_User">
     update backend_user
     set userCode = #{usercode,jdbcType=VARCHAR},
       userName = #{username,jdbcType=VARCHAR},

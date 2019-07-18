@@ -47,7 +47,7 @@
     <!--<mvc:annotation-driven conversion-service="conversionService"/>-->
 
     <!--使用扫描包的形式扫描到对应的控制器-->
-    <context:component-scan base-package="com.bdqn">
+    <context:component-scan base-package="com.bdqn.appInfo">
         <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
         <context:include-filter type="annotation" expression="org.springframework.web.bind.annotation.ControllerAdvice"/>
     </context:component-scan>
