@@ -19,7 +19,7 @@
     <link href="${pageContext.request.contextPath }/statics/css/font-awesome.min.css" rel="stylesheet">
     <!-- NProgress -->
     <link href="${pageContext.request.contextPath }/statics/css/nprogress.css" rel="stylesheet">
-  	<!-- iCheck -->
+    <!-- iCheck -->
     <link href="${pageContext.request.contextPath }/statics/css/green.css" rel="stylesheet">
     <!-- bootstrap-progressbar -->
     <link href="${pageContext.request.contextPath }/statics/css/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet">
@@ -29,8 +29,6 @@
     <link href="${pageContext.request.contextPath }/statics/css/custom.min.css" rel="stylesheet">
     <!-- add localcss 2016-8-21 -->
     <link href="${pageContext.request.contextPath }/statics/localcss/applist.css" rel="stylesheet">
-    <link href="${pageContext.request.contextPath }/statics/localcss/appinfoadd.css" rel="stylesheet">
-    <link href="${pageContext.request.contextPath }/statics/localcss/appinfolist.css" rel="stylesheet">
   </head>
   <body class="nav-md footer_fixed">
     <div class="container body">
