@@ -18,4 +18,12 @@ public interface Dev_UserService {
      * @Date: 2019/07/18 15:26
      */
     Dev_User findDevUserById(Long dev_userId) throws BusinessExcpetion;
+
+    /**
+     * @Description: 开发者登录的方法
+     * @param: [devcode, devpassword]
+     * @return: com.bdqn.appInfo.pojo.Dev_User
+     * @Date: 2019/07/19 14:09
+     */
+    Dev_User login(String devcode, String devpassword)throws BusinessExcpetion;
 }

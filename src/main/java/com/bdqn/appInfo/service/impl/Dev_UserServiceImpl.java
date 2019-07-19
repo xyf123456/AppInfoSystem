@@ -39,4 +39,22 @@ public class Dev_UserServiceImpl implements Dev_UserService {
         return dev_user;
     }
 
+    /**
+     * @param devcode
+     * @param devpassword
+     * @Description: 开发者登录的方法
+     * @param: [devcode, devpassword]
+     * @return: com.bdqn.appInfo.pojo.Dev_User
+     * @Date: 2019/07/19 14:09
+     */
+    @Override
+    @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+    public Dev_User login(String devcode, String devpassword) throws BusinessExcpetion {
+        Dev_User user=dev_userMapper.selectByDevCodeAndPwd(devcode,devpassword);
+        if (user==null){
+            return null;
+        }
+        return user;
+    }
+
 }

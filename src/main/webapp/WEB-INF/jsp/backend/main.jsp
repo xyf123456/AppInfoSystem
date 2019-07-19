@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8"%>
 <%@include file="common/header.jsp" %>
+<div class="clearfix"></div>
 <div class="page-title">
     <div class="title_left">
         <h3>
