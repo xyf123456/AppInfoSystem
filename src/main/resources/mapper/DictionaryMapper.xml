@@ -21,6 +21,19 @@
     from data_dictionary
     where id = #{id,jdbcType=BIGINT}
   </select>
+  <!--获取不同的类型信息-->
+  <select id="selectByTypeCode" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from `data_dictionary`
+    <where>
+       <if test="typeCode!=null">
+         `typeCode` = #{typeCode,jdbcType=VARCHAR}
+       </if>
+    </where>
+  </select>
+
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
     delete from data_dictionary
     where id = #{id,jdbcType=BIGINT}

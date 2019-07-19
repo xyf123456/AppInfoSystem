@@ -9,4 +9,5 @@ public class Constants {
 
     public final static String USER_SESSION = "userSession";
     public final static String DEVUSER_SESSION = "devUserSession";
+    public final static Integer PAGESIZE = 5;
 }
