@@ -98,7 +98,7 @@
     `a`.`versionId`
     FROM `app_info` AS `a`
     INNER JOIN `app_category` AS `c` ON `a`.`categoryLevel1` = `c`.`id`
-    INNER JOIN `dev_user` AS `u` ON `a`.`devId` = `u.id`
+    INNER JOIN `dev_user` AS `u` ON `a`.`devId` = `u`.`id`
     INNER JOIN `app_version` AS `v` ON `a`.`versionId` = `v`.`id`
     <trim prefix="where" prefixOverrides="and | or">
       <if test="querySoftwareName != null and querySoftwareName != ''">
@@ -120,10 +120,10 @@
         and `flatformId` = #{queryFlatformId}
       </if>
       <if test="devId != null">
-        and `id` = #{devId}
+        and `u`.`id` = #{devId}
       </if>
     </trim>
-    order by `creationDate` DESC LIMIT #{from},#{pageSize}
+    order by `a`.`creationDate` DESC LIMIT #{from},#{pageSize}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
     delete from app_info

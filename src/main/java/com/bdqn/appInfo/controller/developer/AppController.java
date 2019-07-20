@@ -4,6 +4,7 @@ import com.bdqn.appInfo.exception.BusinessExcpetion;
 import com.bdqn.appInfo.pojo.Category;
 import com.bdqn.appInfo.pojo.Dev_User;
 import com.bdqn.appInfo.pojo.Dictionary;
+import com.bdqn.appInfo.pojo.Info;
 import com.bdqn.appInfo.service.AppInfoService;
 import com.bdqn.appInfo.service.CategoryService;
 import com.bdqn.appInfo.service.DictionaryService;
@@ -27,7 +28,7 @@ import java.util.List;
  * @Date 2019/7/19 15:01
  */
 @Controller
-@RequestMapping(value = "/app")
+@RequestMapping(value = "/dev/flatform/app")
 public class AppController {
 
     private Logger logger = Logger.getLogger(AppController.class);
@@ -65,7 +66,7 @@ public class AppController {
         logger.info("getAppInfoList -- > queryFlatformId: " + _queryFlatformId);
         logger.info("getAppInfoList -- > pageIndex: " + pageIndex);
         Long devId = ((Dev_User) session.getAttribute(Constants.DEVUSER_SESSION)).getId();
-        List<AppInfo> appInfoList = null;
+        List<Info> appInfoList = null;
         List<Dictionary> statusList = null;
         List<Dictionary> flatFormList = null;
         List<Category> categoryLevel1List = null;//列出一级分类列表，注：二级和三级分类列表通过异步ajax获取
@@ -117,7 +118,29 @@ public class AppController {
         statusList=this.getDataDictionaryList("APP_STATUS");
         flatFormList = this.getDataDictionaryList("APP_FLATFORM");
         categoryLevel1List =categoryService.getAppCategoryListByParentId(null);
-        return null;
+
+        model.addAttribute("appInfoList", appInfoList);
+        model.addAttribute("statusList", statusList);
+        model.addAttribute("flatFormList", flatFormList);
+        model.addAttribute("categoryLevel1List", categoryLevel1List);
+        model.addAttribute("pages", pages);
+        model.addAttribute("queryStatus", queryStatus);
+        model.addAttribute("querySoftwareName", querySoftwareName);
+        model.addAttribute("queryCategoryLevel1", queryCategoryLevel1);
+        model.addAttribute("queryCategoryLevel2", queryCategoryLevel2);
+        model.addAttribute("queryCategoryLevel3", queryCategoryLevel3);
+        model.addAttribute("queryFlatformId", queryFlatformId);
+
+        //二级分类列表和三级分类列表---回显
+        if (queryCategoryLevel2!=null){
+            categoryLevel2List=getCategoryList(queryCategoryLevel1.toString());
+            model.addAttribute("categoryLevel2List", categoryLevel2List);
+        }
+        if (queryCategoryLevel3!=null){
+            categoryLevel3List=getCategoryList(queryCategoryLevel2.toString());
+            model.addAttribute("categoryLevel3List", categoryLevel3List);
+        }
+        return "developer/appinfolist";
 
     }
 
@@ -135,5 +158,17 @@ public class AppController {
             return null;
         }
         return dictionaryList;
+    }
+
+    /**
+     * @Description:  根据parentId查询出相应的分类级别列表
+     * @param: [pid]
+     * @return: java.util.List<com.bdqn.appInfo.pojo.Category>
+     * @Date: 2019/07/20 16:44
+     */
+    public List<Category> getCategoryList(String pid) throws BusinessExcpetion {
+        List<Category> categoryLevelList = null;
+        categoryLevelList = categoryService.getAppCategoryListByParentId(pid==null?null:Integer.parseInt(pid));
+       return  categoryLevelList;
     }
 }

@@ -60,8 +60,8 @@ public class AppInfoServiceImpl implements AppInfoService {
      * @Date: 2019/07/19 15:45
      */
     @Override
-    public List<AppInfo> getAppInfoList(String querySoftwareName, Integer queryStatus, Integer queryCategoryLevel1, Integer queryCategoryLevel2, Integer queryCategoryLevel3, Integer queryFlatformId, Long devId, Integer currentPageNo, int pageSize) throws BusinessExcpetion {
-        List<AppInfo> appInfoList=infoMapper.selectAppInfoList(querySoftwareName, queryStatus, queryCategoryLevel1, queryCategoryLevel2, queryCategoryLevel3, queryFlatformId, devId,(currentPageNo-1)*pageSize,pageSize);
+    public List<Info> getAppInfoList(String querySoftwareName, Integer queryStatus, Integer queryCategoryLevel1, Integer queryCategoryLevel2, Integer queryCategoryLevel3, Integer queryFlatformId, Long devId, Integer currentPageNo, int pageSize) throws BusinessExcpetion {
+        List<Info> appInfoList=infoMapper.selectAppInfoList(querySoftwareName, queryStatus, queryCategoryLevel1, queryCategoryLevel2, queryCategoryLevel3, queryFlatformId, devId,(currentPageNo-1)*pageSize,pageSize);
         if (appInfoList==null){
             return null;
         }

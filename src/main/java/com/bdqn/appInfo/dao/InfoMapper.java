@@ -39,7 +39,7 @@ public interface InfoMapper {
      * @return: java.util.List<com.sun.deploy.ui.AppInfo>
      * @Date: 2019/07/19 15:51
      */
-    List<AppInfo> selectAppInfoList(@Param("querySoftwareName") String querySoftwareName,
+    List<Info> selectAppInfoList(@Param("querySoftwareName") String querySoftwareName,
                                     @Param("queryStatus") Integer queryStatus,
                                     @Param("queryCategoryLevel1") Integer queryCategoryLevel1,
                                     @Param("queryCategoryLevel2") Integer queryCategoryLevel2,
