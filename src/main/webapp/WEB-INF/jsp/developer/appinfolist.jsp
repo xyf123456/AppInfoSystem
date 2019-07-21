@@ -5,7 +5,7 @@
 <div class="row">
     <div class="col-md-12 col-sm-12 col-xs-12">
         <div class="x_panel">
-            <div class="x_title">
+            <%--<div class="x_title">
                 <h2>
                     APP 信息管理维护 <i class="fa fa-user"></i>
                     <small>${devUserSession.devname}
@@ -13,7 +13,7 @@
                     </small>
                 </h2>
                 <div class="clearfix"></div>
-            </div>
+            </div>--%>
             <div class="x_content">
                 <form method="post" action="list">
                     <input type="hidden" name="pageIndex" value="1"/>

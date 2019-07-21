@@ -1,6 +1,8 @@
 package com.bdqn.appInfo.controller.developer;
 
+import com.alibaba.fastjson.JSON;
 import com.bdqn.appInfo.exception.BusinessExcpetion;
+import com.bdqn.appInfo.exception.CommonReturnType;
 import com.bdqn.appInfo.pojo.Category;
 import com.bdqn.appInfo.pojo.Dev_User;
 import com.bdqn.appInfo.pojo.Dictionary;
@@ -16,7 +18,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
@@ -115,9 +119,9 @@ public class AppController {
             currentPageNo = totalPageCount;
         }
         appInfoList = appInfoService.getAppInfoList(querySoftwareName, queryStatus, queryCategoryLevel1, queryCategoryLevel2, queryCategoryLevel3, queryFlatformId, devId, currentPageNo, pageSize);
-        statusList=this.getDataDictionaryList("APP_STATUS");
+        statusList = this.getDataDictionaryList("APP_STATUS");
         flatFormList = this.getDataDictionaryList("APP_FLATFORM");
-        categoryLevel1List =categoryService.getAppCategoryListByParentId(1);
+        categoryLevel1List = categoryService.getAppCategoryListByParentId(null);
 
         model.addAttribute("appInfoList", appInfoList);
         model.addAttribute("statusList", statusList);
@@ -132,12 +136,12 @@ public class AppController {
         model.addAttribute("queryFlatformId", queryFlatformId);
 
         //二级分类列表和三级分类列表---回显
-        if (queryCategoryLevel2!=null){
-            categoryLevel2List=getCategoryList(queryCategoryLevel1.toString());
+        if (queryCategoryLevel2 != null) {
+            categoryLevel2List = getCategoryList(queryCategoryLevel1.toString());
             model.addAttribute("categoryLevel2List", categoryLevel2List);
         }
-        if (queryCategoryLevel3!=null){
-            categoryLevel3List=getCategoryList(queryCategoryLevel2.toString());
+        if (queryCategoryLevel3 != null) {
+            categoryLevel3List = getCategoryList(queryCategoryLevel2.toString());
             model.addAttribute("categoryLevel3List", categoryLevel3List);
         }
         return "developer/appinfolist";
@@ -153,22 +157,40 @@ public class AppController {
      */
     public List<Dictionary> getDataDictionaryList(String typeCode) throws BusinessExcpetion {
         List<Dictionary> dictionaryList = null;
-        dictionaryList=dictionaryService.getDataDictionaryList(typeCode);
-        if (dictionaryList==null){
+        dictionaryList = dictionaryService.getDataDictionaryList(typeCode);
+        if (dictionaryList == null) {
             return null;
         }
         return dictionaryList;
     }
 
     /**
-     * @Description:  根据parentId查询出相应的分类级别列表
+     * @Description: 根据parentId查询出相应的分类级别列表
      * @param: [pid]
      * @return: java.util.List<com.bdqn.appInfo.pojo.Category>
      * @Date: 2019/07/20 16:44
      */
     public List<Category> getCategoryList(String pid) throws BusinessExcpetion {
         List<Category> categoryLevelList = null;
-        categoryLevelList = categoryService.getAppCategoryListByParentId(pid==null?null:Integer.parseInt(pid));
-       return  categoryLevelList;
+        categoryLevelList = categoryService.getAppCategoryListByParentId(pid == null ? null : Integer.parseInt(pid));
+        return categoryLevelList;
+    }
+
+
+    /**
+     * 根据parentId查询出相应的分类级别列表
+     *
+     * @param pid
+     * @return
+     */
+    @RequestMapping(value = "/categorylevellist.json", method = RequestMethod.GET)
+    @ResponseBody
+    public CommonReturnType getAppCategoryList(@RequestParam String pid) throws BusinessExcpetion {
+        logger.debug("getAppCategoryList pid ============ " + pid);
+        if (pid.equals("")) {
+            pid = null;
+        }
+//        return getCategoryList(pid);
+        return CommonReturnType.create(JSON.toJSON(getCategoryList(pid)));
     }
 }

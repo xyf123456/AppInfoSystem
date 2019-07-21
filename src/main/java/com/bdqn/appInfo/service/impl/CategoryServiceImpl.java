@@ -36,8 +36,8 @@ public class CategoryServiceImpl implements CategoryService {
     public List<Category> getAppCategoryListByParentId(Integer parentId) throws BusinessExcpetion {
         List<Category> categoryList = categoryMapper.selectByParentId(parentId);
         if (categoryList == null) {
-            return categoryList;
+            return null;
         }
-        return null;
+        return categoryList;
     }
 }
