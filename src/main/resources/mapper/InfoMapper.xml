@@ -39,6 +39,92 @@
     from app_info
     where id = #{id,jdbcType=BIGINT}
   </select>
+
+  <!--查询App的数量-->
+  <select id="selectAppInfoCount" resultType="Integer">
+    select COUNT(`id`)
+    from `app_info`
+    <trim prefix="where" prefixOverrides="and | or">
+      <if test="querySoftwareName != null and querySoftwareName != ''">
+        and softwareName like CONCAT ('%',#{querySoftwareName},'%')
+      </if>
+      <if test="queryStatus != null">
+        and status = #{queryStatus}
+      </if>
+      <if test="queryCategoryLevel1 != null">
+        and categoryLevel1 = #{queryCategoryLevel1}
+      </if>
+      <if test="queryCategoryLevel2 != null">
+        and categoryLevel2 = #{queryCategoryLevel2}
+      </if>
+      <if test="queryCategoryLevel3 != null">
+        and categoryLevel3 = #{queryCategoryLevel3}
+      </if>
+      <if test="queryFlatformId != null">
+        and flatformId = #{queryFlatformId}
+      </if>
+      <if test="devId != null">
+        and id = #{devId}
+      </if>
+    </trim>
+  </select>
+
+  <!--查询App的数量-->
+  <select id="selectAppInfoList" resultMap="BaseResultMap">
+    SELECT
+    `a`.`id`,
+    `a`.`softwareName`,
+    `a`.`APKName`,
+    `a`.`supportROM`,
+    `a`.`softwareSize`,
+    `a`.`devId`,
+    `c`.`categoryName`,
+    (SELECT
+    `valueName`
+    FROM `data_dictionary` AS `d`
+    WHERE `a`.`status` = `d`.`valueId`
+    AND `d`.`typeCode` = 'APP_STATUS') AS `statusName`,
+    (SELECT
+    `valueName`
+    FROM `data_dictionary` AS `d`
+    WHERE `a`.`flatformId` = `d`.`valueId`
+    AND `d`.`typeCode` = 'APP_FLATFORM') AS `flatformName`,
+    `u`.`devName`,
+    `a`.`categoryLevel1`,
+    `a`.`categoryLevel2`,
+    `a`.`categoryLevel3`,
+    `a`.`downloads`,
+    `a`.`onSaleDate`,
+    `a`.`versionId`
+    FROM `app_info` AS `a`
+    INNER JOIN `app_category` AS `c` ON `a`.`categoryLevel1` = `c`.`id`
+    INNER JOIN `dev_user` AS `u` ON `a`.`devId` = `u`.`id`
+    INNER JOIN `app_version` AS `v` ON `a`.`versionId` = `v`.`id`
+    <trim prefix="where" prefixOverrides="and | or">
+      <if test="querySoftwareName != null and querySoftwareName != ''">
+        and `softwareName` like CONCAT ('%',#{querySoftwareName},'%')
+      </if>
+      <if test="queryStatus != null">
+        and `status` = #{queryStatus}
+      </if>
+      <if test="queryCategoryLevel1 != null">
+        and `categoryLevel1` = #{queryCategoryLevel1}
+      </if>
+      <if test="queryCategoryLevel2 != null">
+        and `categoryLevel2` = #{queryCategoryLevel2}
+      </if>
+      <if test="queryCategoryLevel3 != null">
+        and `categoryLevel3` = #{queryCategoryLevel3}
+      </if>
+      <if test="queryFlatformId != null">
+        and `flatformId` = #{queryFlatformId}
+      </if>
+      <if test="devId != null">
+        and `u`.`id` = #{devId}
+      </if>
+    </trim>
+    order by `a`.`creationDate` DESC LIMIT #{from},#{pageSize}
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
     delete from app_info
     where id = #{id,jdbcType=BIGINT}

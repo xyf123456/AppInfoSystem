@@ -20,6 +20,23 @@
     from app_category
     where id = #{id,jdbcType=BIGINT}
   </select>
+
+
+  <select id="selectByParentId" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from app_category
+    <trim prefix="where" prefixOverrides="and | or">
+      <if test="parentId != null">
+        and parentId = #{parentId}
+      </if>
+      <if test="parentId == null">
+        and parentId is null
+      </if>
+    </trim>
+  </select>
+
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
     delete from app_category
     where id = #{id,jdbcType=BIGINT}

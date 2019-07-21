@@ -23,6 +23,21 @@
     from dev_user
     where id = #{id,jdbcType=BIGINT}
   </select>
+
+  <select id="selectByDevCodeAndPwd" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from `dev_user`
+    <where>
+        <if test="devcode!=null">
+          AND `devCode` = #{devcode,jdbcType=VARCHAR}
+        </if>
+      <if test="devpassword!=null">
+        AND `devPassword` = #{devpassword,jdbcType=VARCHAR}
+      </if>
+    </where>
+  </select>
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
     delete from dev_user
     where id = #{id,jdbcType=BIGINT}

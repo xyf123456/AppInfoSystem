@@ -18,7 +18,7 @@
     <!-- NProgress -->
     <link href="${pageContext.request.contextPath }/statics/css/nprogress.css" rel="stylesheet">
     <!-- Animate.css -->
-    <link href="https://colorlib.com/polygon/gentelella/css/animate.min.css" rel="stylesheet">
+    <link href="${pageContext.request.contextPath }/statics/css/animate.min.css" rel="stylesheet">
 
     <!-- Custom Theme Style -->
     <link href="${pageContext.request.contextPath }/statics/css/custom.min.css" rel="stylesheet">
@@ -32,13 +32,13 @@
       <div class="login_wrapper">
         <div class="animate form login_form">
           <section class="login_content">
-            <form action="dologin" method="post">
+            <form action="<%=request.getContextPath()%>/dev/doLogin" method="post">
               <h1>APP开发者平台</h1>
               <div>
-                <input type="text" class="form-control" name="devCode" placeholder="请输入用户名" required="" />
+                <input type="text" class="form-control" name="devcode" placeholder="请输入用户名" required="" />
               </div>
               <div>
-                <input type="password" class="form-control" name="devPassword" placeholder="请输入密码" required="" />
+                <input type="password" class="form-control" name="devpassword" placeholder="请输入密码" required="" />
               </div>
               <span>${error }</span>
               <div>
