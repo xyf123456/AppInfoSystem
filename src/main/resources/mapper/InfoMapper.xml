@@ -23,6 +23,9 @@
     <result column="modifyDate" property="modifydate" jdbcType="TIMESTAMP" />
     <result column="categoryLevel1" property="categorylevel1" jdbcType="BIGINT" />
     <result column="categoryLevel2" property="categorylevel2" jdbcType="BIGINT" />
+    <result column="categoryLevel1Name" property="categoryLevel1Name" jdbcType="VARCHAR" />
+    <result column="categoryLevel2Name" property="categoryLevel2Name" jdbcType="VARCHAR" />
+    <result column="categoryLevel3Name" property="categoryLevel3Name" jdbcType="VARCHAR" />
     <result column="logoPicPath" property="logopicpath" jdbcType="VARCHAR" />
     <result column="logoLocPath" property="logolocpath" jdbcType="VARCHAR" />
     <result column="versionId" property="versionid" jdbcType="BIGINT" />
@@ -31,7 +34,7 @@
     id, softwareName, APKName, supportROM, interfaceLanguage, softwareSize, updateDate, 
     devId, appInfo, status, onSaleDate, offSaleDate, flatformId, categoryLevel3, downloads, 
     createdBy, creationDate, modifyBy, modifyDate, categoryLevel1, categoryLevel2, logoPicPath, 
-    logoLocPath, versionId
+    logoLocPath, versionId,categoryLevel1Name,categoryLevel2Name,categoryLevel3Name
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
     select 
@@ -91,8 +94,11 @@
     AND `d`.`typeCode` = 'APP_FLATFORM') AS `flatformName`,
     `u`.`devName`,
     `a`.`categoryLevel1`,
+    (SELECT categoryName FROM app_category c WHERE  c.id=a.categoryLevel1) AS categoryLevel1Name,
     `a`.`categoryLevel2`,
+    (SELECT categoryName FROM app_category c WHERE  c.id=a.categoryLevel2) AS categoryLevel2Name,
     `a`.`categoryLevel3`,
+    (SELECT categoryName FROM app_category c WHERE  c.id=a.categoryLevel3) AS categoryLevel3Name,
     `a`.`downloads`,
     `a`.`onSaleDate`,
     `a`.`versionId`
@@ -123,7 +129,7 @@
         and `u`.`id` = #{devId}
       </if>
     </trim>
-    order by `a`.`creationDate` DESC LIMIT #{from},#{pageSize}
+    ORDER BY `a`.`creationDate` DESC LIMIT #{from},#{pageSize}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
     delete from app_info
