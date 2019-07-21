@@ -117,7 +117,7 @@ public class AppController {
         appInfoList = appInfoService.getAppInfoList(querySoftwareName, queryStatus, queryCategoryLevel1, queryCategoryLevel2, queryCategoryLevel3, queryFlatformId, devId, currentPageNo, pageSize);
         statusList=this.getDataDictionaryList("APP_STATUS");
         flatFormList = this.getDataDictionaryList("APP_FLATFORM");
-        categoryLevel1List =categoryService.getAppCategoryListByParentId(null);
+        categoryLevel1List =categoryService.getAppCategoryListByParentId(1);
 
         model.addAttribute("appInfoList", appInfoList);
         model.addAttribute("statusList", statusList);

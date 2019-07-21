@@ -46,25 +46,25 @@
     from `app_info`
     <trim prefix="where" prefixOverrides="and | or">
       <if test="querySoftwareName != null and querySoftwareName != ''">
-        and softwareName like CONCAT ('%',#{querySoftwareName},'%')
+        and `softwareName` like CONCAT ('%',#{querySoftwareName},'%')
       </if>
       <if test="queryStatus != null">
-        and status = #{queryStatus}
+        and `status` = #{queryStatus}
       </if>
       <if test="queryCategoryLevel1 != null">
-        and categoryLevel1 = #{queryCategoryLevel1}
+        and `categoryLevel1` = #{queryCategoryLevel1}
       </if>
       <if test="queryCategoryLevel2 != null">
-        and categoryLevel2 = #{queryCategoryLevel2}
+        and `categoryLevel2` = #{queryCategoryLevel2}
       </if>
       <if test="queryCategoryLevel3 != null">
-        and categoryLevel3 = #{queryCategoryLevel3}
+        and `categoryLevel3` = #{queryCategoryLevel3}
       </if>
       <if test="queryFlatformId != null">
-        and flatformId = #{queryFlatformId}
+        and `flatformId` = #{queryFlatformId}
       </if>
       <if test="devId != null">
-        and id = #{devId}
+        and `devId` = #{devId}
       </if>
     </trim>
   </select>

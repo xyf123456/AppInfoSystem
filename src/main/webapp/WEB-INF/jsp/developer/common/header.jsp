@@ -167,7 +167,8 @@
 											<a> <strong>See All Alerts</strong> <i
 												class="fa fa-angle-right"></i> </a>
 										</div></li>
-								</ul></li>
+								</ul>
+							</li>
 						</ul>
 					</nav>
 				</div>
