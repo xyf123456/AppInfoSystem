@@ -12,7 +12,6 @@ import com.bdqn.appInfo.service.CategoryService;
 import com.bdqn.appInfo.service.DictionaryService;
 import com.bdqn.appInfo.utils.Constants;
 import com.bdqn.appInfo.utils.PageSupport;
-import com.sun.deploy.ui.AppInfo;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

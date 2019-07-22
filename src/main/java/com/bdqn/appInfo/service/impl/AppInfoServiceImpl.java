@@ -4,7 +4,6 @@ import com.bdqn.appInfo.dao.InfoMapper;
 import com.bdqn.appInfo.exception.BusinessExcpetion;
 import com.bdqn.appInfo.pojo.Info;
 import com.bdqn.appInfo.service.AppInfoService;
-import com.sun.deploy.ui.AppInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;

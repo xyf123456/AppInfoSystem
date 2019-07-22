@@ -1,7 +1,6 @@
 package com.bdqn.appInfo.dao;
 
 import com.bdqn.appInfo.pojo.Info;
-import com.sun.deploy.ui.AppInfo;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;

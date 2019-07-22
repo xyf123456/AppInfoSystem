@@ -15,6 +15,7 @@
 
     <!-- Bootstrap -->
     <link href="${pageContext.request.contextPath }/statics/css/bootstrap.min.css" rel="stylesheet">
+
     <!-- Font Awesome -->
     <link href="${pageContext.request.contextPath }/statics/css/font-awesome.min.css" rel="stylesheet">
     <!-- NProgress -->
@@ -28,9 +29,7 @@
     <!-- Custom Theme Style -->
     <link href="${pageContext.request.contextPath }/statics/css/custom.min.css" rel="stylesheet">
     <!-- add localcss 2016-8-21 -->
-    <link href="${pageContext.request.contextPath }/statics/localcss/applist.css" rel="stylesheet">
-    <link href="${pageContext.request.contextPath }/statics/localcss/appinfoadd.css" rel="stylesheet">
-    <link href="${pageContext.request.contextPath }/statics/localcss/appinfolist.css" rel="stylesheet">
+
   </head>
   <body class="nav-md footer_fixed">
     <div class="container body">

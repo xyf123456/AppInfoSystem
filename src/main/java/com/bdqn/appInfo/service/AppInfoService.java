@@ -2,7 +2,6 @@ package com.bdqn.appInfo.service;
 
 import com.bdqn.appInfo.exception.BusinessExcpetion;
 import com.bdqn.appInfo.pojo.Info;
-import com.sun.deploy.ui.AppInfo;
 
 import java.util.List;
 
