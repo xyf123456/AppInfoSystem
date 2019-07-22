@@ -17,7 +17,7 @@ import java.util.List;
  * @Author: xyf
  * @Date 2019/7/19 15:22
  */
-@Service
+@Service("appInfoService")
 @Transactional
 public class AppInfoServiceImpl implements AppInfoService {
 
@@ -59,11 +59,30 @@ public class AppInfoServiceImpl implements AppInfoService {
      * @Date: 2019/07/19 15:45
      */
     @Override
+    @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
     public List<Info> getAppInfoList(String querySoftwareName, Integer queryStatus, Integer queryCategoryLevel1, Integer queryCategoryLevel2, Integer queryCategoryLevel3, Integer queryFlatformId, Long devId, Integer currentPageNo, int pageSize) throws BusinessExcpetion {
         List<Info> appInfoList=infoMapper.selectAppInfoList(querySoftwareName, queryStatus, queryCategoryLevel1, queryCategoryLevel2, queryCategoryLevel3, queryFlatformId, devId,(currentPageNo-1)*pageSize,pageSize);
         if (appInfoList==null){
             return null;
         }
         return appInfoList;
+    }
+
+    /**
+     * @param apkId
+     * @param apkName
+     * @Description: 根据id、apkName查找appInfo
+     * @param: [apkId, apkName]
+     * @return: com.bdqn.appInfo.pojo.Info
+     * @Date: 2019/07/22 10:15
+     */
+    @Override
+    @Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+    public Info getAppInfo(Long apkId, String apkName) throws BusinessExcpetion {
+         Info info = infoMapper.selectByPrimaryKey(apkId,apkName);
+         if (info==null){
+             return null;
+         }
+         return info;
     }
 }

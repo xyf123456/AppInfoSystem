@@ -41,4 +41,12 @@ public interface AppInfoService {
                               Long devId,
                               Integer currentPageNo,
                               int pageSize)throws BusinessExcpetion;
+
+    /**
+     * @Description: 根据id、apkName查找appInfo
+     * @param: [apkId, apkName]
+     * @return: com.bdqn.appInfo.pojo.Info
+     * @Date: 2019/07/22 10:15
+     */
+    Info getAppInfo(Long apkId, String apkName)  throws BusinessExcpetion;
 }

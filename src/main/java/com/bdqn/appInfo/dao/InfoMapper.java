@@ -12,7 +12,13 @@ public interface InfoMapper {
 
     int insertSelective(Info record);
 
-    Info selectByPrimaryKey(Long id);
+    /**
+     * @Description: 查询到APP信息通过id或名称
+     * @param: [id, apkName]
+     * @return: com.bdqn.appInfo.pojo.Info
+     * @Date: 2019/07/22 11:44
+     */
+    Info selectByPrimaryKey(@Param("id") Long id,@Param("apkName") String apkName);
 
     int updateByPrimaryKeySelective(Info record);
 

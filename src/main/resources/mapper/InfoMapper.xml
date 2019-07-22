@@ -36,11 +36,24 @@
     createdBy, creationDate, modifyBy, modifyDate, categoryLevel1, categoryLevel2, logoPicPath, 
     logoLocPath, versionId,categoryLevel1Name,categoryLevel2Name,categoryLevel3Name
   </sql>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
-    select 
-    <include refid="Base_Column_List" />
-    from app_info
-    where id = #{id,jdbcType=BIGINT}
+  <select id="selectByPrimaryKey" resultType="Info">
+    SELECT * ,
+    (select devName from dev_user where id = a.devId) as devName,
+    (select valueName from data_dictionary d where  a.status=d.valueId AND d.typeCode='APP_STATUS') as statusName,
+    (select valueName from data_dictionary d where  a.status=d.valueId AND d.typeCode='APP_FLATFORM') as flatformName,
+    (select categoryName from app_category c where  c.id=a.categoryLevel1) as categoryLevel1Name,
+    (select categoryName from app_category c where  c.id=a.categoryLevel2) as categoryLevel2Name,
+    (select categoryName from app_category c where  c.id=a.categoryLevel3) as categoryLevel3Name,
+    (select v.versionNo from app_version v where v.id=a.versionId ) as versionNo
+    from app_info a
+    <trim prefix="where" prefixOverrides="and | or">
+      <if test="id != null">
+        and a.id = #{id}
+      </if>
+      <if test="apkName != null">
+        and a.APKName = #{apkName}
+      </if>
+    </trim>
   </select>
 
   <!--查询App的数量-->

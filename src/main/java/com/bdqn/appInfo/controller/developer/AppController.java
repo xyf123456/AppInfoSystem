@@ -16,10 +16,7 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
@@ -144,7 +141,6 @@ public class AppController {
             model.addAttribute("categoryLevel3List", categoryLevel3List);
         }
         return "developer/appinfolist";
-
     }
 
 
@@ -191,5 +187,50 @@ public class AppController {
         }
 //        return getCategoryList(pid);
         return CommonReturnType.create(JSON.toJSON(getCategoryList(pid)));
+    }
+
+
+    /**
+     * @Description: 跳转到APP添加页面
+     * @param: [appInfo]
+     * @return: java.lang.String
+     * @Date: 2019/07/22 10:07
+     */
+    @RequestMapping(value="/appinfoadd",method=RequestMethod.GET)
+    public String add(@ModelAttribute("appInfo") Info appInfo){
+        return "developer/appinfoadd";
+    }
+
+
+    /**
+     * @Description: 根据typeCode查询出相应的数据字典列表
+     * @param: [tcode]
+     * @return: java.util.List<com.bdqn.appInfo.pojo.Dictionary>
+     * @Date: 2019/07/22 9:50
+     */
+    @RequestMapping(value="/datadictionarylist.json",method=RequestMethod.GET)
+    @ResponseBody
+    public CommonReturnType getDataDicList (@RequestParam String tcode) throws BusinessExcpetion {
+        logger.debug("getDataDicList tcode ============ " + tcode);
+//        return this.getDataDictionaryList(tcode);
+        return CommonReturnType.create(JSON.toJSON(this.getDataDictionaryList(tcode)));
+    }
+
+    /**
+     * @Description: 判断APKName是否唯一
+     * @param: [APKName]
+     * @return: java.lang.Object
+     * @Date: 2019/07/22 10:10
+     */
+    @RequestMapping(value="/apkexist.json",method=RequestMethod.GET)
+    @ResponseBody
+    public Object apkNameIsExit(@RequestParam("APKName") String APKName) throws BusinessExcpetion {
+//        根据id、apkName查找appInfo
+        Info appInfo = appInfoService.getAppInfo(null, APKName);
+        if (appInfo==null){
+            return CommonReturnType.create(null,"empty");
+        }else {
+            return CommonReturnType.create(JSON.toJSON(appInfo));
+        }
     }
 }
