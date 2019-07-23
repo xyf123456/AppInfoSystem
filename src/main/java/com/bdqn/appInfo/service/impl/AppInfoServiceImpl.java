@@ -85,4 +85,21 @@ public class AppInfoServiceImpl implements AppInfoService {
          }
          return info;
     }
+
+    /**
+     * @param appInfo
+     * @Description: 添加APP信息
+     * @param: [appInfo]
+     * @return: boolean
+     * @Date: 2019/07/23 9:17
+     */
+    @Override
+    @Transactional(propagation = Propagation.REQUIRED)
+    public boolean add(Info appInfo) throws BusinessExcpetion {
+        boolean flag = false;
+        if (infoMapper.insertSelective(appInfo)>0){
+            flag = true;
+        }
+        return flag;
+    }
 }

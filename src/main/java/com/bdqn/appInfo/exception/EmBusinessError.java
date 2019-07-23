@@ -14,8 +14,8 @@ public enum EmBusinessError implements CommonError {
     //   20000开头为用户信息相关的错误定义
     USER_NOT_EXIST(20001, "用户不存在"),
 
-    //   30000开头为供应商信息相关的错误定义
-    PROVIDER_NOT_EXIST(30001, "供应商信息不存在"),
+    //   30000开头为APP信息相关的错误定义
+    UPLOADERROR(30001, "上传图片失败"),
     ;
 
     private int errCode;//错误代码

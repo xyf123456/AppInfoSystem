@@ -21,56 +21,56 @@
                    </div>
                  </div> -->
                 <div class="clearfix"></div>
-                <form class="form-horizontal form-label-left" action="appinfoaddsave" method="post"
+                <form class="form-horizontal form-label-left" action="<%=request.getContextPath()%>/dev/flatform/app/appinfoaddsave" method="post"
                       enctype="multipart/form-data">
                     <div class="item form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="softwareName">软件名称 <span class="required">*</span>
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="softwarename">软件名称 <span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                            <input id="softwareName" class="form-control col-md-7 col-xs-12"
-                                   data-validate-length-range="20" data-validate-words="1" name="softwareName"
+                            <input id="softwarename" class="form-control col-md-7 col-xs-12"
+                                   data-validate-length-range="20" data-validate-words="1" name="softwarename"
                                    required="required"
                                    placeholder="请输入软件名称" type="text">
                         </div>
                     </div>
                     <div class="item form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="APKName">APK名称 <span
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="apkname">APK名称 <span
                                 class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                            <input id="APKName" class="form-control col-md-7 col-xs-12"
-                                   data-validate-length-range="20" data-validate-words="1" name="APKName"
+                            <input id="apkname" class="form-control col-md-7 col-xs-12"
+                                   data-validate-length-range="20" data-validate-words="1" name="apkname"
                                    required="required"
                                    placeholder="请输入APK名称" type="text">
                         </div>
                     </div>
 
                     <div class="item form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="supportROM">支持ROM <span
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="supportrom">支持ROM <span
                                 class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                            <input id="supportROM" class="form-control col-md-7 col-xs-12" name="supportROM"
+                            <input id="supportrom" class="form-control col-md-7 col-xs-12" name="supportrom"
                                    data-validate-length-range="20" data-validate-words="1" required="required"
                                    placeholder="请输入支持的ROM" type="text">
                         </div>
                     </div>
                     <div class="item form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="interfaceLanguage">界面语言 <span class="required">*</span>
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="interfacelanguage">界面语言 <span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                            <input id="interfaceLanguage" class="form-control col-md-7 col-xs-12"
-                                   data-validate-length-range="20" data-validate-words="1" name="interfaceLanguage"
+                            <input id="interfacelanguage" class="form-control col-md-7 col-xs-12"
+                                   data-validate-length-range="20" data-validate-words="1" name="interfacelanguage"
                                    required="required"
                                    placeholder="请输入软件支持的界面语言" type="text">
                         </div>
                     </div>
                     <div class="item form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="softwareSize">软件大小 <span
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="softwaresize">软件大小 <span
                                 class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                            <input type="number" id="softwareSize" name="softwareSize" required="required"
+                            <input type="number" id="softwaresize" name="softwaresize" required="required"
                                    onkeyup="value=value.replace(/[^\d]/g,'')"
                                    data-validate-minmax="10,500" placeholder="请输入软件大小，单位为Mb"
                                    class="form-control col-md-7 col-xs-12">
@@ -89,36 +89,36 @@
                     </div>
 
                     <div class="item form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="flatformId">所属平台 <span
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="flatformid">所属平台 <span
                                 class="required">*</span></label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                            <select name="flatformId" id="flatformId" class="form-control" required="required"></select>
+                            <select name="flatformid" id="flatformid" class="form-control" required="required"></select>
                         </div>
                     </div>
 
                     <div class="item form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="categoryLevel1">一级分类 <span
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="categorylevel1">一级分类 <span
                                 class="required">*</span></label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                            <select name="categoryLevel1" id="categoryLevel1" class="form-control"
+                            <select name="categorylevel1" id="categorylevel1" class="form-control"
                                     required="required"> </select>
                         </div>
                     </div>
 
                     <div class="item form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="categoryLevel2">二级分类 <span
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="categorylevel2">二级分类 <span
                                 class="required">*</span></label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                            <select name="categoryLevel2" id="categoryLevel2" class="form-control"
+                            <select name="categorylevel2" id="categorylevel2" class="form-control"
                                     required="required"></select>
                         </div>
                     </div>
 
                     <div class="item form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="categoryLevel3">三级分类 <span
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="categorylevel3">三级分类 <span
                                 class="required">*</span></label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                            <select name="categoryLevel3" id="categoryLevel3" class="form-control"
+                            <select name="categorylevel3" id="categorylevel3" class="form-control"
                                     required="required"></select>
                         </div>
                     </div>
@@ -131,11 +131,11 @@
                         </div>
                     </div>
                     <div class="item form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="appInfo">应用简介 <span
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="appinfo">应用简介 <span
                                 class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-              <textarea id="appInfo" name="appInfo" required="required"
+              <textarea id="appinfo" name="appinfo" required="required"
                         placeholder="请输入本软件的相关信息，本信息作为软件的详细信息进行软件的介绍。"
                         class="form-control col-md-7 col-xs-12"></textarea>
                         </div>
@@ -144,10 +144,10 @@
                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="a_logoPicPath">LOGO图片 <span
                                 class="required">*</span>
                         </label>
-                        <div class="col-md-6 col-sm-6 col-xs-12">
-                            <input type="file" class="form-control col-md-7 col-xs-12" name="a_logoPicPath"
-                                   required="required" id="a_logoPicPath"/>
-                            ${fileUploadError }
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input type="file" class="form-control col-md-7 col-xs-12" name="a_logoPicPath"
+                                       required="required" id="a_logoPicPath"/>
+                                ${fileUploadError }
                         </div>
                     </div>
                     <div class="ln_solid"></div>

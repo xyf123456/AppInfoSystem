@@ -8,3 +8,7 @@
 .dropzone .dz-message span span{
 	font-size:12px;
 }
+
+textarea{
+	resize: none;
+}

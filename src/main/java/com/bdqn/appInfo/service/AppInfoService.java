@@ -49,4 +49,12 @@ public interface AppInfoService {
      * @Date: 2019/07/22 10:15
      */
     Info getAppInfo(Long apkId, String apkName)  throws BusinessExcpetion;
+
+    /**
+     * @Description: 添加APP信息
+     * @param: [appInfo]
+     * @return: boolean
+     * @Date: 2019/07/23 9:17
+     */
+    boolean add(Info appInfo)throws BusinessExcpetion;;
 }

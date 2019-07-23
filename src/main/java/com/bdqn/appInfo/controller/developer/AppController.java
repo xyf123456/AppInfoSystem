@@ -3,6 +3,7 @@ package com.bdqn.appInfo.controller.developer;
 import com.alibaba.fastjson.JSON;
 import com.bdqn.appInfo.exception.BusinessExcpetion;
 import com.bdqn.appInfo.exception.CommonReturnType;
+import com.bdqn.appInfo.exception.EmBusinessError;
 import com.bdqn.appInfo.pojo.Category;
 import com.bdqn.appInfo.pojo.Dev_User;
 import com.bdqn.appInfo.pojo.Dictionary;
@@ -12,13 +13,20 @@ import com.bdqn.appInfo.service.CategoryService;
 import com.bdqn.appInfo.service.DictionaryService;
 import com.bdqn.appInfo.utils.Constants;
 import com.bdqn.appInfo.utils.PageSupport;
+import com.mysql.jdbc.StringUtils;
+import org.apache.commons.io.FilenameUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.io.File;
+import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -196,8 +204,8 @@ public class AppController {
      * @return: java.lang.String
      * @Date: 2019/07/22 10:07
      */
-    @RequestMapping(value="/appinfoadd",method=RequestMethod.GET)
-    public String add(@ModelAttribute("appInfo") Info appInfo){
+    @RequestMapping(value = "/appinfoadd", method = RequestMethod.GET)
+    public String add(@ModelAttribute("appInfo") Info appInfo) {
         return "developer/appinfoadd";
     }
 
@@ -208,9 +216,9 @@ public class AppController {
      * @return: java.util.List<com.bdqn.appInfo.pojo.Dictionary>
      * @Date: 2019/07/22 9:50
      */
-    @RequestMapping(value="/datadictionarylist.json",method=RequestMethod.GET)
+    @RequestMapping(value = "/datadictionarylist.json", method = RequestMethod.GET)
     @ResponseBody
-    public CommonReturnType getDataDicList (@RequestParam String tcode) throws BusinessExcpetion {
+    public CommonReturnType getDataDicList(@RequestParam String tcode) throws BusinessExcpetion {
         logger.debug("getDataDicList tcode ============ " + tcode);
 //        return this.getDataDictionaryList(tcode);
         return CommonReturnType.create(JSON.toJSON(this.getDataDictionaryList(tcode)));
@@ -222,15 +230,73 @@ public class AppController {
      * @return: java.lang.Object
      * @Date: 2019/07/22 10:10
      */
-    @RequestMapping(value="/apkexist.json",method=RequestMethod.GET)
+    @RequestMapping(value = "/apkexist.json", method = RequestMethod.GET)
     @ResponseBody
     public Object apkNameIsExit(@RequestParam("APKName") String APKName) throws BusinessExcpetion {
 //        根据id、apkName查找appInfo
         Info appInfo = appInfoService.getAppInfo(null, APKName);
-        if (appInfo==null){
-            return CommonReturnType.create(null,"empty");
-        }else {
-            return CommonReturnType.create(JSON.toJSON(appInfo));
+        if (StringUtils.isNullOrEmpty(APKName)) {
+            return CommonReturnType.create(null, "empty");
+        } else {
+            if (appInfo == null) {
+                return CommonReturnType.create(null, "fail");
+            } else {
+                return CommonReturnType.create(JSON.toJSON(appInfo));
+            }
         }
+    }
+
+    //    @ResponseBody
+    @RequestMapping(value = "/appinfoaddsave", method = RequestMethod.POST)
+    public String addSave(Info app, HttpSession session, HttpServletRequest request,
+                          @RequestParam(value = "a_logoPicPath", required = false) MultipartFile attach){
+
+        String logoPicPath = null;
+        String logoLocPath = null;
+        if (!attach.isEmpty()) {
+            String path = request.getSession().getServletContext().getRealPath("statics" + java.io.File.separator + "uploadfiles");
+            logger.info("uploadFile path: " + path);
+            String oldFileName = attach.getOriginalFilename();//原文件名
+            String prefix = FilenameUtils.getExtension(oldFileName);//原文件后缀
+            int filesize = 5000000;
+            if (attach.getSize() > filesize) {//上传大小不得超过 50k
+                request.setAttribute("fileUploadError", Constants.FILEUPLOAD_ERROR_4);
+//                throw new BusinessExcpetion(EmBusinessError.UPLOADERROR);
+                return "developer/appinfoadd";
+            } else if (prefix.equalsIgnoreCase("jpg") || prefix.equalsIgnoreCase("png")
+                    || prefix.equalsIgnoreCase("jepg") || prefix.equalsIgnoreCase("pneg")) {//上传图片格式
+                String fileName = app.getApkname() + ".jpg";//上传LOGO图片命名:apk名称.apk
+                File targetFile = new File(path, fileName);
+                if (!targetFile.exists()) {
+                    targetFile.mkdirs();
+                }
+                try {
+                    attach.transferTo(targetFile);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    return "developer/appinfoadd";
+                }
+
+                logoPicPath = request.getContextPath() + "/statics/uploadfiles/" + fileName;
+                logoLocPath = path + File.separator + fileName;
+            } else {
+                request.setAttribute("fileUploadError", Constants.FILEUPLOAD_ERROR_3);
+                return "developer/appinfoadd";
+            }
+        }
+        app.setCreatedby(((Dev_User) session.getAttribute(Constants.DEVUSER_SESSION)).getId());
+        app.setCreationdate(new Date());
+        app.setLogopicpath(logoPicPath);
+        app.setLogolocpath(logoLocPath);
+        app.setDevid(((Dev_User) session.getAttribute(Constants.DEVUSER_SESSION)).getId());
+        app.setStatus(1L);
+        try {
+            if (appInfoService.add(app)) {
+                return "redirect:/dev/flatform/app/list";
+            }
+        } catch (BusinessExcpetion businessExcpetion) {
+            businessExcpetion.printStackTrace();
+        }
+            return "developer/appinfoadd";
     }
 }

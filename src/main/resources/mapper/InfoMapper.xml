@@ -169,12 +169,9 @@
       #{logopicpath,jdbcType=VARCHAR}, #{logolocpath,jdbcType=VARCHAR}, #{versionid,jdbcType=BIGINT}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.bdqn.appInfo.pojo.Info" >
+  <insert id="insertSelective" parameterType="Info" >
     insert into app_info
     <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        id,
-      </if>
       <if test="softwarename != null" >
         softwareName,
       </if>
@@ -223,12 +220,6 @@
       <if test="creationdate != null" >
         creationDate,
       </if>
-      <if test="modifyby != null" >
-        modifyBy,
-      </if>
-      <if test="modifydate != null" >
-        modifyDate,
-      </if>
       <if test="categorylevel1 != null" >
         categoryLevel1,
       </if>
@@ -239,16 +230,10 @@
         logoPicPath,
       </if>
       <if test="logolocpath != null" >
-        logoLocPath,
-      </if>
-      <if test="versionid != null" >
-        versionId,
+        logoLocPath
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        #{id,jdbcType=BIGINT},
-      </if>
       <if test="softwarename != null" >
         #{softwarename,jdbcType=VARCHAR},
       </if>
@@ -297,12 +282,6 @@
       <if test="creationdate != null" >
         #{creationdate,jdbcType=TIMESTAMP},
       </if>
-      <if test="modifyby != null" >
-        #{modifyby,jdbcType=BIGINT},
-      </if>
-      <if test="modifydate != null" >
-        #{modifydate,jdbcType=TIMESTAMP},
-      </if>
       <if test="categorylevel1 != null" >
         #{categorylevel1,jdbcType=BIGINT},
       </if>
@@ -313,10 +292,7 @@
         #{logopicpath,jdbcType=VARCHAR},
       </if>
       <if test="logolocpath != null" >
-        #{logolocpath,jdbcType=VARCHAR},
-      </if>
-      <if test="versionid != null" >
-        #{versionid,jdbcType=BIGINT},
+        #{logolocpath,jdbcType=VARCHAR}
       </if>
     </trim>
   </insert>
